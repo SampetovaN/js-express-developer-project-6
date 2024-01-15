@@ -1,0 +1,24 @@
+extends ../layouts/application.pug
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th= t('views.users.id')
+        th= t('views.users.email')
+        th= t('views.users.firstName')
+        th= t('views.users.lastName')
+        th= t('views.users.createdAt')
+        th
+    tbody
+      each user in users
+        tr
+          td= user.id
+          td= user.email
+          td= user.firstName
+          td= user.lastName
+          td= formatDate(user.createdAt)
+          td
+           .d-flex.flex-row.align-items-center
+            a(href=route('editUser', { id: user.id }))= t('views.users.editButton')
+            +buttonTo(route('deleteUser', { id: user.id} ), 'delete')(class="btn btn-link" value=t('views.users.deleteButton'))
