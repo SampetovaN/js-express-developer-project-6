@@ -33,11 +33,12 @@ export default (app) => {
           .insert(validUser);
         req.flash('info', i18next.t('flash.users.create.success'));
         reply.redirect(app.reverse('users'));
-      } catch ({ data }) {
+      } catch (err) {
+        console.log(err, '====r')
         req.flash('error', i18next.t('flash.users.create.error'));
         reply.render('users/new', {
           user,
-          errors: data,
+          errors: err?.data,
         });
       }
 

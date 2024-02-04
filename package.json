@@ -8,9 +8,11 @@
    },
    "scripts": {
       "prebuild": "rm -rf dist",
-      "test": "jest --verbose --runInBand",
+      "test": "NODE_ENV=test jest --verbose --runInBand",
       "build": "webpack",
-      "start": "webpack && fastify start -p 10000 -a 0.0.0.0 server/plugin.js -l debug -P -o"
+      "build-db": "knex migrate:latest",
+      "start": "fastify start -p 10000 -a 0.0.0.0 server/plugin.js -l debug -P -o",
+      "start-production": "npm run build-db && npm run build && npm run start"
    },
    "jest": {
       "modulePathIgnorePatterns": [
@@ -51,7 +53,8 @@
       "qs": "^6.11.0",
       "simple-knex-fixtures": "^2.0.3",
       "sqlite3": "^5.1.7",
-      "webpack": "^5.74.0"
+      "webpack": "^5.74.0",
+      "dotenv": "^16.0.1"
    },
    "devDependencies": {
       "@faker-js/faker": "^8.4.0",
@@ -59,7 +62,6 @@
       "@types/jest": "^28.1.7",
       "@types/node": "^18.7.11",
       "css-loader": "^6.7.1",
-      "dotenv": "^16.0.1",
       "eslint": "^8.22.0",
       "eslint-config-airbnb-base": "^15.0.0",
       "eslint-plugin-import": "^2.26.0",

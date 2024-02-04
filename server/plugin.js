@@ -1,6 +1,7 @@
 // @ts-check
 
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
 import path from 'path';
 import fastifyStatic from '@fastify/static';
@@ -25,7 +26,7 @@ import * as knexConfig from '../knexfile.js';
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
-const mode = process.env.NODE_ENV || 'development';
+const mode = dotenv.config().parsed.NODE_ENV || 'development';
 
 const setUpViews = (app) => {
   const helpers = getHelpers(app);
@@ -42,7 +43,10 @@ const setUpViews = (app) => {
   });
 
   app.decorateReply('render', function render(viewPath, locals) {
-    this.view(viewPath, { ...locals, reply: this });
+    this.view(viewPath, {
+      ...locals,
+      reply: this,
+    });
   });
 };
 
@@ -79,8 +83,9 @@ const registerPlugins = async (app) => {
   });
 
   fastifyPassport.registerUserDeserializer(
-    (user) => app.objection.models.user.query().findById(user.id),
-    );
+    (user) => app.objection.models.user.query()
+      .findById(user.id),
+  );
   fastifyPassport.registerUserSerializer((user) => Promise.resolve(user));
   fastifyPassport.use(new FormStrategy('form', app));
   await app.register(fastifyPassport.initialize());
