@@ -29,7 +29,7 @@ export const test = {
 
 export const production = {
   client: 'pg',
-  connection: dotenv.config().parsed.DATABASE_URL,
+  connection: dotenv.config({ path: path.resolve(__dirname, '.env') }).parsed.DATABASE_URL,
   useNullAsDefault: true,
   migrations,
 };
