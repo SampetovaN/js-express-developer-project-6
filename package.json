@@ -54,7 +54,8 @@
       "simple-knex-fixtures": "^2.0.3",
       "sqlite3": "^5.1.7",
       "webpack": "^5.74.0",
-      "dotenv": "^16.0.1"
+      "dotenv": "^16.0.1",
+      "webpack-cli": "^4.10.0"
    },
    "devDependencies": {
       "@faker-js/faker": "^8.4.0",
@@ -69,7 +70,6 @@
       "jest": "^28.1.3",
       "jest-cli": "^28.1.3",
       "pino-pretty": "^9.0.1",
-      "style-loader": "^3.3.1",
-      "webpack-cli": "^4.10.0"
+      "style-loader": "^3.3.1"
    }
 }
