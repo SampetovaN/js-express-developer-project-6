@@ -26,7 +26,7 @@ import * as knexConfig from '../knexfile.js';
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
-const mode = dotenv.config().parsed.NODE_ENV || 'development';
+const mode = process.env.NODE_ENV || 'development';
 
 const setUpViews = (app) => {
   const helpers = getHelpers(app);
