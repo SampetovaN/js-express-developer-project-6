@@ -9,10 +9,10 @@
    "scripts": {
       "prebuild": "rm -rf dist",
       "test": "NODE_ENV=test jest --verbose --runInBand",
-      "build": "webpack",
-      "build-db": "cp knexfile.js dist && knex migrate:latest",
-      "start": "fastify start -p 10000 -a 0.0.0.0 server/plugin.js -l debug -P -o",
-      "start-production": "npm run build-db && npm run build && npm run start"
+      "build-fe": "webpack",
+      "build-db": "knex migrate:latest",
+      "build-be": "fastify start -p 10000 -a 0.0.0.0 server/plugin.js -l debug -P -o",
+      "start": "npm run build-db && npm run build-fe && npm run build-be"
    },
    "jest": {
       "modulePathIgnorePatterns": [

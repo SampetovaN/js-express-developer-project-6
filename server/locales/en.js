@@ -28,6 +28,21 @@ export default {
         },
         authError: 'Access denied! Please login',
       },
+      statuses: {
+        create: {
+          error: 'Failed to add status',
+          success: 'Status added successfully',
+        },
+        edit: {
+          error: 'Failed to edit status',
+          success: 'Status edited successfully',
+        },
+        delete: {
+          error: 'Failed to delete status',
+          success: 'Status deleted successfully',
+        },
+        authError: 'Access denied! Please login',
+      },
     },
     layouts: {
       application: {
@@ -35,6 +50,8 @@ export default {
         signIn: 'Login',
         signUp: 'Register',
         signOut: 'Logout',
+        statuses: 'Statuses',
+        addStatus: 'Add status',
       },
     },
     views: {
@@ -58,6 +75,20 @@ export default {
         },
         edit: {
           changeHeader: 'Edit',
+          submit: 'Edit',
+        },
+      },
+      statuses: {
+        editButton: 'Edit',
+        deleteButton: 'Delete',
+        id: 'ID',
+        name: 'Name',
+        new: {
+          add: 'Add',
+          submit: 'Add',
+        },
+        edit: {
+          changeHeader: 'Edit Status',
           submit: 'Edit',
         },
       },

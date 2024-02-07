@@ -24,6 +24,21 @@ export default {
         },
         authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
       },
+      statuses: {
+        create: {
+          error: 'Не удалось добавить статус',
+          success: 'Статус успешно добавлен',
+        },
+        edit: {
+          error: 'Не удалось отредатктировать статус',
+          success: 'Статус успешно изменен',
+        },
+        delete: {
+          error: 'Не удалось удалить статус',
+          success: 'Статус успешно удален',
+        },
+        authError: 'Access denied! Please login',
+      },
     },
     layouts: {
       application: {
@@ -31,6 +46,8 @@ export default {
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выход',
+        statuses: 'Статусы',
+        addStatus: 'Добавить статус',
       },
     },
     views: {
@@ -54,6 +71,20 @@ export default {
         },
         edit: {
           changeHeader: 'Редактировать',
+          submit: 'Редактировать',
+        },
+      },
+      statuses: {
+        editButton: 'Редактировать',
+        deleteButton: 'Удалить',
+        id: 'ID',
+        name: 'Название',
+        new: {
+          add: 'Создать',
+          submit: 'Создать',
+        },
+        edit: {
+          changeHeader: 'Редактирова статус',
           submit: 'Редактировать',
         },
       },

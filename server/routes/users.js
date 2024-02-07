@@ -14,7 +14,10 @@ export default (app) => {
     })
     .get(
       '/users/:id/edit',
-      { name: 'editUser', preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate]) },
+      {
+        name: 'editUser',
+        preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate]),
+      },
 
       async (req, reply) => {
         const user = await app.objection.models.user.query()
@@ -34,7 +37,6 @@ export default (app) => {
         req.flash('info', i18next.t('flash.users.create.success'));
         reply.redirect(app.reverse('users'));
       } catch (err) {
-        console.log(err, '====r')
         req.flash('error', i18next.t('flash.users.create.error'));
         reply.render('users/new', {
           user,
@@ -48,7 +50,7 @@ export default (app) => {
       '/users/:id',
       {
         name: 'updateUser',
-        preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate])
+        preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate]),
       },
       async (req, reply) => {
         try {
@@ -80,7 +82,10 @@ export default (app) => {
         }
       },
     )
-    .delete('/users/:id', { name: 'deleteUser', preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate]) }, async (req, reply) => {
+    .delete('/users/:id', {
+      name: 'deleteUser',
+      preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate]),
+    }, async (req, reply) => {
       const user = await app.objection.models.user.query()
         .findById(req.params.id);
       if (!user) {

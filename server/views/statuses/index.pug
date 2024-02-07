@@ -1,0 +1,18 @@
+extends ../layouts/application.pug
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th= status.id
+        th= t('views.statuses.name')
+        th
+    tbody
+      each status in statuses
+        tr
+          td= status.id
+          td= status.name
+          td
+           .d-flex.flex-row.align-items-center
+            a(href=route('editStatus', { id: user.id }))= t('views.statuses.editButton')
+            +buttonTo(route('deleteStatus', { id: user.id} ), 'delete')(class="btn btn-link" value=t('views.statuses.deleteButton'))
