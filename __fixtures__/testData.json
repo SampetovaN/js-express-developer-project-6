@@ -12,5 +12,14 @@
       "lastName": "ew",
       "firstName": "ddfdvfd"
     }
+  },
+
+  "statuses": {
+    "new": {
+      "name": "DDDD"
+    },
+    "existing": {
+      "name": "tttt"
+    }
   }
 }

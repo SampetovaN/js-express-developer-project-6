@@ -88,14 +88,13 @@ export default (app) => {
       name: 'deleteStatus',
       preValidation: app.auth([app.checkIfUserCanEditProfile, app.authenticate]),
     }, async (req, reply) => {
-      const user = await app.objection.models.status.query()
+      const status = await app.objection.models.status.query()
         .findById(req.params.id);
-      if (!user) {
+      if (!status) {
         req.flash('error', i18next.t('flash.statuses.delete.error'));
       } else {
-        await user.$query()
+        await status.$query()
           .delete();
-        req.logOut();
         req.flash('info', i18next.t('flash.statuses.delete.success'));
         reply.redirect('/statuses');
       }

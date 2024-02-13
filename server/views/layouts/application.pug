@@ -20,12 +20,13 @@ html(lang="en")
                 a.nav-link(href=route('users'))= t('layouts.application.users')
               li.nav-item
                 a.nav-link(href=route('statuses'))= t('layouts.application.statuses')
+              if isAuthenticated()
+                li.nav-item
+                  a.nav-link(href=route('newStatus'))= t('layouts.application.addStatus')
           ul.navbar-nav
             if isAuthenticated()
               li.nav-item
                 +buttonTo(route('session'), 'delete')(class="btn nav-link" value=t('layouts.application.signOut'))
-              li.nav-item
-                a.nav-link(href=route('newStatus'))= t('layouts.application.addStatus')
             else
               li.nav-item
                 a.nav-link(href=route('newSession'))= t('layouts.application.signIn')

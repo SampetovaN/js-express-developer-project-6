@@ -8,7 +8,7 @@ import init from '../server/plugin.js';
 import encrypt from '../server/lib/secure.cjs';
 import { prepareData, getCookie, getTestData } from './helpers/index.js';
 
-describe('statuses users CRUD', () => {
+describe('test users CRUD', () => {
   let app;
   let knex;
   let models;
@@ -28,13 +28,13 @@ describe('statuses users CRUD', () => {
   beforeEach(async () => {
     await knex.migrate.latest();
     await prepareData(app);
-    cookie = await getCookie(app, testData.users.existing);
+    cookie = await getCookie(app, testData.statuses.existing);
   });
 
   it('index', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('users'),
+      url: app.reverse('statuses'),
     });
 
     expect(response.statusCode)
@@ -44,7 +44,7 @@ describe('statuses users CRUD', () => {
   it('new', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('newUser'),
+      url: app.reverse('newStatus'),
     });
 
     expect(response.statusCode)
@@ -52,10 +52,10 @@ describe('statuses users CRUD', () => {
   });
 
   it('create', async () => {
-    const params = testData.users.new;
+    const params = testData.statuses.new;
     const response = await app.inject({
       method: 'POST',
-      url: app.reverse('users'),
+      url: app.reverse('statuses'),
       payload: {
         data: params,
       },
@@ -63,27 +63,23 @@ describe('statuses users CRUD', () => {
 
     expect(response.statusCode)
       .toBe(302);
-    const expected = {
-      ..._.omit(params, 'password'),
-      passwordDigest: encrypt(params.password),
-    };
-    const user = await models.user.query()
-      .findOne({ email: params.email });
-    expect(user)
-      .toMatchObject(expected);
+    const status = await models.user.query()
+      .findOne({ name: params.name });
+    expect(status.name)
+      .toMatchObject(params.name);
   });
 
   describe('delete', () => {
-    it('registrated user can delete his/her profile', async () => {
-      const existingUserData = testData.users.existing;
-      const { id } = await models.user.query()
+    it('registrated user can delete status', async () => {
+      const existingUserData = testData.statuses.existing;
+      const { id } = await models.status.query()
         .findOne({
-          email: existingUserData.email,
+          name: existingUserData.name,
         });
 
       const response = await app.inject({
         method: 'DELETE',
-        url: app.reverse('deleteUser', { id }),
+        url: app.reverse('deleteStatus', { id }),
         cookies: cookie,
       });
 
@@ -95,7 +91,7 @@ describe('statuses users CRUD', () => {
       expect(deletedUser)
         .toEqual(undefined);
     });
-    it('registrated user can\'t delete profile of another person', async () => {
+    it('not registrated user can\'t delete status', async () => {
       const id = faker.number.toString();
       const response = await app.inject({
         method: 'DELETE',
